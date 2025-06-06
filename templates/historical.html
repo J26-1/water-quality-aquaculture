@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Historical Water Quality Data</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --primary: #3498db;
+      --accent: #2ecc71;
+      --danger: #e74c3c;
+      --bg: #f9f9f9;
+      --dark: #2c3e50;
+      --white: #fff;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: var(--dark);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 30px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    #controls {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px var(--shadow);
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+      margin-bottom: 40px;
+    }
+
+    #controls label {
+      font-weight: bold;
+      display: inline-block;
+      margin: 10px 5px 5px 0;
+    }
+
+    #controls input, #controls select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    #controls select {
+      min-width: 200px;
+      height: auto;
+    }
+
+    #controls button {
+      padding: 10px 16px;
+      margin: 10px 5px 0 0;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #controls button:nth-of-type(1) {
+      background: var(--primary);
+      color: white;
+    }
+
+    #controls button:nth-of-type(1):hover {
+      background: #2980b9;
+    }
+
+    #controls button:nth-of-type(2) {
+      background: var(--accent);
+      color: white;
+    }
+
+    #controls button:nth-of-type(2):hover {
+      background: #27ae60;
+    }
+
+    #controls button:nth-of-type(3) {
+      background: #95a5a6;
+      color: white;
+    }
+
+    #controls button:nth-of-type(3):hover {
+      background: #7f8c8d;
+    }
+
+    #chart-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px var(--shadow);
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    @media (max-width: 600px) {
+      #controls, #chart-container {
+        padding: 15px;
+      }
+
+      #controls input, #controls select {
+        width: 100%;
+        margin-right: 0;
+      }
+
+      #controls button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Historical Water Quality Data</h2>
+  <a href="{{ url_for('logout') }}">Logout</a>
+
+  <div id="controls">
+    <label for="start-date">Start Date:</label>
+    <input type="date" id="start-date">
+
+    <label for="end-date">End Date:</label>
+    <input type="date" id="end-date">
+
+    <label for="parameters">Select Parameter(s):</label>
+    <select id="parameters" multiple size="5">
+      <option value="Temperature" selected>Temperature</option>
+      <option value="pH" selected>pH</option>
+      <option value="Dissolved Oxygen">Dissolved Oxygen</option>
+      <option value="Turbidity">Turbidity</option>
+      <option value="Chlorophyll">Chlorophyll</option>
+      <option value="Average Water Speed">Average Water Speed</option>
+    </select>
+
+    <br>
+
+    <button onclick="loadData()">📈 Load Data</button>
+    <button onclick="downloadFilteredCSV()">⬇️ Download Filtered CSV</button>
+    <button onclick="goBack()">🔙 Back to Dashboard</button>
+  </div>
+
+  <div id="chart-container">
+    <canvas id="dataChart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let chart;
+
+    function goBack() {
+      window.location.href = '/dashboard';
+    }
+
+    async function loadData() {
+      const start = document.getElementById('start-date').value;
+      const end = document.getElementById('end-date').value;
+
+      if (!start || !end) {
+        alert("Please select both start and end dates.");
+        return;
+      }
+
+      const paramsSelect = document.getElementById('parameters');
+      const selectedParams = Array.from(paramsSelect.selectedOptions).map(opt => opt.value);
+      if (selectedParams.length === 0) {
+        alert("Please select at least one parameter.");
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/historical-data?start=${start}&end=${end}`);
+        const data = await response.json();
+        if (data.error) throw new Error(data.error);
+
+        renderChart(data, selectedParams);
+      } catch (err) {
+        alert("Error loading data: " + err.message);
+      }
+    }
+
+    function renderChart(data, selectedParams) {
+      const timestamps = data.map(d => d.Timestamp);
+
+      const colors = [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 206, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(153, 102, 255)',
+        'rgb(255, 159, 64)'
+      ];
+
+      const datasets = selectedParams.map((param, index) => {
+        const dataPoints = data.map(d => {
+          const val = parseFloat(d[param]);
+          return isNaN(val) ? null : val;
+        });
+
+        return {
+          label: param,
+          data: dataPoints,
+          borderColor: colors[index % colors.length],
+          backgroundColor: colors[index % colors.length].replace('rgb', 'rgba').replace(')', ', 0.2)'),
+          fill: false,
+          tension: 0.3,
+          spanGaps: true,
+          yAxisID: 'y'
+        };
+      });
+
+      const ctx = document.getElementById('dataChart').getContext('2d');
+      if (chart) chart.destroy();
+
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: timestamps,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          stacked: false,
+          scales: {
+            y: {
+              type: 'linear',
+              display: true,
+              title: {
+                display: true,
+                text: 'Value'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Timestamp'
+              }
+            }
+          },
+          plugins: {
+            legend: { position: 'top' },
+            tooltip: { mode: 'index', intersect: false }
+          }
+        }
+      });
+    }
+
+    function downloadFilteredCSV() {
+      const start = document.getElementById('start-date').value;
+      const end = document.getElementById('end-date').value;
+
+      if (!start || !end) {
+        alert("Please select both start and end dates.");
+        return;
+      }
+
+      window.location.href = `/download-historical-csv?start=${start}&end=${end}`;
+    }
+  </script>
+</body>
+</html>
+

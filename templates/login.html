@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4a90e2, #357ABD);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
+
+    .login-container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 24px;
+      font-weight: 700;
+      color: #222;
+      letter-spacing: 1px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      text-align: left;
+      display: block;
+      margin-bottom: 6px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1.8px solid #ccc;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #4a90e2;
+      box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+    }
+
+    button {
+      background-color: #357ABD;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 14px rgba(53, 122, 189, 0.4);
+    }
+
+    button:hover {
+      background-color: #2c61a1;
+    }
+
+    .error {
+      background-color: #ffe5e5;
+      color: #b00020;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(176, 0, 32, 0.15);
+      text-align: left;
+    }
+
+    p {
+      margin-top: 24px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    a {
+      color: #357ABD;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #2c61a1;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 420px) {
+      .login-container {
+        padding: 30px 24px;
+        margin: 0 12px;
+      }
+      button {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+      {% if messages %}
+        <div class="error">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" action="/login">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required autofocus autocomplete="username" />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required autocomplete="current-password" />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign up here</a></p>
+    <p><a href="{{ url_for('index') }}">Home</a></p>
+  </div>
+</body>
+</html>
+
+
+
+
+
