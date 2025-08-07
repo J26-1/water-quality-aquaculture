@@ -32,7 +32,7 @@ Malaysian SME aquaculture farmers often rely on outdated and manual water testin
 
 This project fills the gap by offering a **cost-effective**, **localized**, and **user-centered** solution that empowers farmers to improve water quality, reduce losses, and boost productivity.
 
----
+
 
 ## 📦 Tech Stack
 
