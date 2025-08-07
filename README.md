@@ -11,7 +11,7 @@ This is a real-time, web-based water quality monitoring system tailored specific
 
 Farmers can access live data, receive alerts, and visualize historical trends – all from a simple, mobile-friendly web dashboard.
 
----
+
 
 ## 🎯 Project Goals
 
@@ -20,7 +20,7 @@ Farmers can access live data, receive alerts, and visualize historical trends �
 - Include **AI-powered predictive analytics** for smarter decision-making.
 - Ensure **ease of use** through a clean, intuitive web interface.
 
----
+
 
 ## 🚨 Problem Statement
 
@@ -44,7 +44,7 @@ This project fills the gap by offering a **cost-effective**, **localized**, and 
 | Database    | JavaScript-based storage (e.g., IndexedDB/localStorage during prototype) |
 | Deployment  | Render             |
 
----
+
 
 ## 🧠 AI & Analytics
 
@@ -52,7 +52,7 @@ This project fills the gap by offering a **cost-effective**, **localized**, and 
 - Provides **predictive insights** (e.g., trend forecasting for dissolved oxygen or ammonia levels)
 - Customizable thresholds based on specific **species or pond types**
 
----
+
 
 ## 🖥️ Features
 
@@ -63,7 +63,7 @@ This project fills the gap by offering a **cost-effective**, **localized**, and 
 - ✅ Responsive and mobile-friendly web UI  
 - ✅ Historical data visualization & export  
 
----
+
 
 ## 👥 Target Users
 
@@ -72,7 +72,7 @@ This project fills the gap by offering a **cost-effective**, **localized**, and 
 - 🏢 **Government Agencies / Policy Makers**  
 - 🧪 **Environmental Scientists & Institutions**  
 
----
+
 
 ## 🔬 System Architecture
 
