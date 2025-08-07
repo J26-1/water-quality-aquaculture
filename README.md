@@ -1,19 +1,19 @@
-# 🌊 Water Quality Monitoring System for Aquaculture in Malaysia
+# Water Quality Monitoring System for Aquaculture in Malaysia
 
-## 📌 Overview
+## Overview
 
 This is a real-time, web-based water quality monitoring system tailored specifically for **Malaysian aquaculture farms**, particularly **small and medium enterprises (SMEs)**. By integrating affordable **IoT sensors** with a **Flask-based backend**, **LightGBM-powered predictions**, and a **JavaScript frontend**, this project helps farmers monitor vital water parameters such as:
 
-- Temperature 🌡️  
-- pH 🧪  
-- Dissolved Oxygen 💧  
-- Ammonia Levels 🐟  
+- Temperature  
+- pH  
+- Dissolved Oxygen  
+- Ammonia Levels  
 
 Farmers can access live data, receive alerts, and visualize historical trends – all from a simple, mobile-friendly web dashboard.
 
 
 
-## 🎯 Project Goals
+## Project Goals
 
 - Provide an **affordable**, **localized**, and **scalable** system for small-scale aquaculture operators in Malaysia.
 - Enable **real-time** monitoring with **custom alerts** for different species/farm conditions.
@@ -22,7 +22,7 @@ Farmers can access live data, receive alerts, and visualize historical trends �
 
 
 
-## 🚨 Problem Statement
+## Problem Statement
 
 Malaysian SME aquaculture farmers often rely on outdated and manual water testing methods that:
 - Are **labor-intensive** and error-prone  
@@ -34,7 +34,7 @@ This project fills the gap by offering a **cost-effective**, **localized**, and 
 
 
 
-## 📦 Tech Stack
+## Tech Stack
 
 | Layer       | Technology         |
 |-------------|--------------------|
@@ -46,7 +46,7 @@ This project fills the gap by offering a **cost-effective**, **localized**, and 
 
 
 
-## 🧠 AI & Analytics
+## AI & Analytics
 
 - Integrated **LightGBM** model trained on sample aquaculture datasets
 - Provides **predictive insights** (e.g., trend forecasting for dissolved oxygen or ammonia levels)
@@ -54,23 +54,23 @@ This project fills the gap by offering a **cost-effective**, **localized**, and 
 
 
 
-## 🖥️ Features
+## Features
 
-- ✅ Real-time sensor data collection via IoT modules  
-- ✅ Live data dashboard (temperature, pH, DO, ammonia)  
-- ✅ Custom threshold alerts & push notifications  
-- ✅ AI-driven trend prediction and water quality suggestions  
-- ✅ Responsive and mobile-friendly web UI  
-- ✅ Historical data visualization & export  
+- Real-time sensor data collection via IoT modules  
+- Live data dashboard (temperature, pH, DO, ammonia)  
+- Custom threshold alerts & push notifications  
+- AI-driven trend prediction and water quality suggestions  
+- Responsive and mobile-friendly web UI  
+- Historical data visualization & export  
 
 
 
-## 👥 Target Users
+## Target Users
 
-- 🎣 **Small & Medium-Sized Aquaculture Farmers**  
-- 🧑‍🔬 **Aquaculture Consultants / Researchers**  
-- 🏢 **Government Agencies / Policy Makers**  
-- 🧪 **Environmental Scientists & Institutions**  
+- **Small & Medium-Sized Aquaculture Farmers**  
+- **Aquaculture Consultants / Researchers**  
+- **Government Agencies / Policy Makers**  
+- **Environmental Scientists & Institutions**  
 
 
 
