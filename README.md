@@ -1,4 +1,4 @@
-# Water Quality Monitoring System for Aquaculture in Malaysia
+# Water Quality Monitoring System for Aquaculture
 
 ## Overview
 
